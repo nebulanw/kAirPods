@@ -97,7 +97,7 @@ impl<T: Default + Copy, const N: usize> Ring<T, N> {
    }
 
    /// Iterator from oldest to newest.
-   pub fn iter(&self) -> RingIter<T> {
+   pub fn iter(&self) -> RingIter<'_, T> {
       let (left, right) = self.as_slices();
       RingIter { left, right }
    }
