@@ -22,6 +22,7 @@ mod config;
 mod dbus;
 mod error;
 mod event;
+mod media_control;
 mod ringbuf;
 
 use crate::{airpods::device::AirPods, dbus::AirPodsServiceSignals, error::Result};
@@ -207,6 +208,16 @@ impl EventProcessor {
                .await
                .devices_changed(iface.signal_emitter())
                .await?;
+
+            // Handle play/pause based on ear detection
+            let is_in_ear = ear_detection.is_left_in_ear() || ear_detection.is_right_in_ear();
+            if is_in_ear {
+               // AirPods are in ear - send play command
+               media_control::send_play().await;
+            } else {
+               // AirPods are out of ear - send pause command
+               media_control::send_pause().await;
+            }
          },
          AirPodsEvent::DeviceNameChanged(name) => {
             iface.device_name_changed(addr_str, &name).await?;
