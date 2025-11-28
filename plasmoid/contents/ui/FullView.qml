@@ -176,6 +176,7 @@ Item {
                 // Noise control
                 NoiseControlPanel {
                     Layout.fillWidth: true
+                    Layout.fillHeight: true
                     currentMode: currentDevice && currentDevice.noise_mode ? currentDevice.noise_mode : "off"
                     onModeChanged: function(mode) {
                         noiseControlChanged(mode)

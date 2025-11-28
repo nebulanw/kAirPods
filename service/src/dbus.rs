@@ -7,6 +7,7 @@ use zbus::{fdo, interface, object_server::SignalEmitter, zvariant};
 use crate::{
    airpods::protocol::{FeatureId, NoiseControlMode},
    bluetooth::manager::BluetoothManager,
+   media_control,
 };
 
 pub struct AirPodsService {
@@ -127,6 +128,16 @@ impl AirPodsService {
       let addr = Address::from_str(&address).map_err(to_arg_error)?;
       self.bluetooth_manager.disconnect_aap(addr).await?;
       Ok(true)
+   }
+
+   async fn set_auto_play_pause(&self, enabled: bool) -> fdo::Result<bool> {
+      media_control::set_enabled(enabled);
+      info!("Auto play/pause set to {enabled}");
+      Ok(true)
+   }
+
+   async fn get_auto_play_pause(&self) -> fdo::Result<bool> {
+      Ok(media_control::is_enabled())
    }
 
    // Signals

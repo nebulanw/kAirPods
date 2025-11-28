@@ -29,6 +29,7 @@ PlasmoidItem {
             if (registered) {
                 console.log("kAirPods service is available")
                 managerProps.updateAll()
+                syncAutoPlayPause()
             } else {
                 console.log("kAirPods service is not available")
                 devices = {}
@@ -103,6 +104,24 @@ PlasmoidItem {
     // ------------------------------------------------------------------
     // D-Bus helpers (fire-and-forget – updates come via PropertiesChanged)
     // ------------------------------------------------------------------
+    function syncAutoPlayPause() {
+        if (!serviceWatcher.registered) return
+        DBus.SessionBus.asyncCall({
+            service: "org.kairpods",
+            path: "/org/kairpods/manager",
+            iface: "org.kairpods.manager",
+            member: "SetAutoPlayPause",
+            arguments: [Plasmoid.configuration.autoPlayPause]
+        })
+    }
+
+    Connections {
+        target: Plasmoid.configuration
+        function onAutoPlayPauseChanged() {
+            syncAutoPlayPause()
+        }
+    }
+
     function sendCommand(action, params) {
         if (!selectedDevice || !serviceWatcher.registered) return
         DBus.SessionBus.asyncCall({
@@ -230,6 +249,7 @@ PlasmoidItem {
     Component.onCompleted: {
         if (serviceWatcher.registered) {
             managerProps.updateAll()
+            syncAutoPlayPause()
         }
     }
 }

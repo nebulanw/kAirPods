@@ -10,7 +10,6 @@ Card {
     signal modeChanged(mode: string)
 
     title: i18n("Noise Cancellation")
-    implicitHeight: Kirigami.Units.gridUnit * 12
 
     contentItem: Component {
         GridLayout {
