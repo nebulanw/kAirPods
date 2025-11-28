@@ -184,7 +184,7 @@ PlasmoidItem {
 
     fullRepresentation: Item {
         Layout.preferredWidth: Kirigami.Units.gridUnit * 18
-        Layout.preferredHeight: Kirigami.Units.gridUnit * 20
+        Layout.preferredHeight: Kirigami.Units.gridUnit * 28
 
         // Service unavailable view
         ColumnLayout {
