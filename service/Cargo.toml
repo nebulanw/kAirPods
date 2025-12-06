@@ -1,6 +1,6 @@
 [package]
 name = "kairpodsd"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2024"
 rust-version = "1.88.0"
 
@@ -14,7 +14,7 @@ documentation = "https://github.com/can1357/kAirPods"
 readme = "../README.md"
 
 keywords = ["kde", "plasma", "airpods", "bluetooth", "dbus"]
-categories = ["hardware-support", "desktop", "os::linux-apis"]
+categories = ["hardware-support", "os::linux-apis"]
 
 [dependencies]
 tokio = { version = "1.47", features = ["full"] }
