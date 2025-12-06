@@ -179,6 +179,7 @@ PlasmoidItem {
     // ------------------------------------------------------------------
     compactRepresentation: CompactView {
         device: root.currentDevice
+        showPulseAnimation: Plasmoid.configuration.showPulseAnimation
         onClicked: root.expanded = !root.expanded
     }
 

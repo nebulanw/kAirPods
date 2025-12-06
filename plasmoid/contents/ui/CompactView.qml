@@ -7,6 +7,7 @@ Item {
     id: root
 
     property var device: null
+    property bool showPulseAnimation: true
     signal clicked()
 
     // Calculate average battery
@@ -121,7 +122,7 @@ Item {
 
             // Connection pulse
             Rectangle {
-                visible: device && device.connected
+                visible: showPulseAnimation && device && device.connected
                 anchors.centerIn: parent
                 width: parent.width * 1.3
                 height: width
