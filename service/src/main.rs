@@ -210,13 +210,13 @@ impl EventProcessor {
                .await?;
 
             // Handle play/pause based on ear detection
-            // Pause when at least one earbud is removed, play only when both are in
-            let both_in_ear = ear_detection.is_left_in_ear() && ear_detection.is_right_in_ear();
-            if both_in_ear {
-               // Both AirPods are in ear - send play command
+            // Pause when both earbuds are removed, play when at least one is in
+            let one_in_ear = ear_detection.is_left_in_ear() || ear_detection.is_right_in_ear();
+            if one_in_ear {
+               // One AirPod in ear - send play command
                media_control::send_play().await;
             } else {
-               // At least one AirPod is out of ear - send pause command
+               // Both AirPods are out of ear - send pause command
                media_control::send_pause().await;
             }
          },
